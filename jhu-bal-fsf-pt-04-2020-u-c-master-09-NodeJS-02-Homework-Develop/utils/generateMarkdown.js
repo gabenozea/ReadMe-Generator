@@ -1,8 +1,5 @@
 // function to generate markdown for README
-function generateMarkdown(data) {
-  return `# ${data.title}
-
-`;
+function generateMarkdown(answers) {
 let licenseBadge;
 
  if (answers.license[0] === "Apache 2") {
@@ -14,12 +11,16 @@ let licenseBadge;
 } else {
   licenseBadge = "";
 };
-
+console.log (answers)
 return `
+
 # ${answers.title}
 ${licenseBadge}
+
 # Description
 ${answers.description}
+
+
 ## Table of Contents
 * [Installation](#installation)
 * [Usage](#usage)
@@ -42,5 +43,5 @@ Questions about this application can be directed towards <${answers.email}>.
 Other works can be found at <https://github.com/${answers.username}>.
 `
 
-module.exports = generateMarkdown;
 }
+module.exports = generateMarkdown;

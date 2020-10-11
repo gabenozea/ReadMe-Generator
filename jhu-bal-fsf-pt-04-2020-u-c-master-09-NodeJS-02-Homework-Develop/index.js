@@ -1,16 +1,16 @@
-const fs = require("fs");
-const util = require("utils");
 const inquirer = require("inquirer");
 const markdown = require("./utils/generateMarkdown.js");
-
+const fs = require("fs")
+const util = require("util")
+const writeFileAsync = util.promisify(fs.writeFile) 
 // array of questions for user
-function askQuestions () {}
+function askQuestions () {
 
 return inquirer.prompt( [
 {
      type: "input",
 
-     name: "project_name",
+     name: "title",
 
      prompt: "Project title"
 },
@@ -18,7 +18,7 @@ return inquirer.prompt( [
 {
     type: "input",
 
-    name: "project_description",
+    name: "description",
 
     prompt: "Project description"
 
@@ -35,7 +35,7 @@ return inquirer.prompt( [
 {
     type: "input",
 
-    name: "install",
+    name: "installation",
 
     prompt: "Put installation information here"
 },
@@ -43,7 +43,7 @@ return inquirer.prompt( [
 {
     type: "input",
 
-    name: "project_usage",
+    name: "usage",
 
     prompt: "Put usage information here."
 },
@@ -88,22 +88,38 @@ return inquirer.prompt( [
     prompt: "Display contact information here."
 },
 
+{ 
+    type: "input",
+
+    name: "email",
+
+    prompt: "Display email information here."
+},
+{
+    type: "input",
+
+    name: "username",
+
+    prompt: "Display GitHub profile username here"
+    
+}
+
 ])
 
+}
+ 
 // function to write README file
-function writeToFile(fileName, data) {
+function writeToFile(data) {
     writeFileAsync("README.md", data);
 }
 
 // function to initialize program
 function init() {
-    function init() {
         askQuestions ()
         .then(function (answers) {
           writeToFile(markdown(answers));
         })
-      }
 }
 
 // function call to initialize program
-init;
+init();
